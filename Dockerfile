@@ -3,11 +3,13 @@ FROM nvidia/cuda:12.1.0-base-ubuntu22.04
 # Update package repositories and install dependencies
 RUN apt update
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata. 
-RUN apt install -y git wget curl python3-pip python3 ffmpeg
+RUN apt install -y git wget curl python3-pip python3 ffmpeg sudo ssh
 
 # Add a new user
 RUN useradd -ms /bin/bash user && \
-    echo "user:password" | chpasswd
+    echo "user:password" | chpasswd && \
+    adduser user sudo
+
 
 # Install Anaconda
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh && \
@@ -31,3 +33,12 @@ RUN git clone --depth 1 https://github.com/iperov/DeepFaceLab.git && \
     python -m pip install -r ./DeepFaceLab/requirements-cuda.txt
 
 # VOLUME /home/user/DeepFaceLab_Linux/
+
+
+# Expose port 22
+ENV PORT=22
+EXPOSE 22
+
+# Start SSH service
+RUN mkdir /var/run/sshd
+CMD /usr/sbin/sshd -D
