@@ -1,16 +1,10 @@
-FROM nvidia/cuda:12.1.0-base-rockylinux9
+FROM nvidia/cuda:12.1.0-base-ubuntu22.04
 
 # Update package repositories and install dependencies
-RUN dnf install -y https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm
-RUN dnf update -y && dnf install -y git wget python3 python3-pip
-RUN wget https://breakfastquay.com/files/releases/rubberband-1.9.2.tar.bz2 && \
-    tar xjf rubberband-1.9.2.tar.bz2 && \
-    cd rubberband-1.9.2 && \
-    ./configure && \
-    make && \
-    make install
-
-RUN dnf install -y ffmpeg
+# Update package repositories and install dependencies
+RUN apt update
+RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata. 
+RUN apt install -y git wget curl python3-pip python3 ffmpeg
 
 # Add a new user
 RUN useradd -ms /bin/bash user && \
