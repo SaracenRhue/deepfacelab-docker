@@ -1,7 +1,6 @@
 FROM nvidia/cuda:12.1.0-base-ubuntu22.04
 
 # Update package repositories and install dependencies
-# Update package repositories and install dependencies
 RUN apt update
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata. 
 RUN apt install -y git wget curl python3-pip python3 ffmpeg
@@ -30,3 +29,5 @@ RUN git clone --depth 1 https://github.com/nagadit/DeepFaceLab_Linux.git
 WORKDIR /home/user/DeepFaceLab_Linux
 RUN git clone --depth 1 https://github.com/iperov/DeepFaceLab.git && \
     python -m pip install -r ./DeepFaceLab/requirements-cuda.txt
+
+# VOLUME /home/user/DeepFaceLab_Linux/
