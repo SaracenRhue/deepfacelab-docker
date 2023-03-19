@@ -1,7 +1,7 @@
 FROM nvidia/cuda:12.1.0-base-rockylinux9
 
 # Update package repositories and install dependencies
-RUN dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+RUN dnf install -y https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm
 RUN dnf update -y
 RUN dnf install -y git wget curl ffmpeg python3 python3-pip
 
