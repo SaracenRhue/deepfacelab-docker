@@ -1,10 +1,10 @@
 FROM nvidia/cuda:12.1.0-base-rockylinux9
 
 # Update package repositories and install dependencies
-RUN dnf install -y https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm
 RUN dnf update -y
-RUN dnf install -y git wget curl ffmpeg python3 python3-pip
-
+RUN dnf install -y git wget curl python3 python3-pip
+RUN dnf install -y https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm
+RUN dnf update -y && dnf install -y ffmpeg
 # Add a new user
 RUN useradd -ms /bin/bash user && \
     echo "user:password" | chpasswd
